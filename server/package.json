@@ -5,7 +5,8 @@
 	"author": "mathletedev",
 	"scripts": {
 		"watch": "tsc -w",
-		"start": "nodemon dist/index.js"
+		"start": "nodemon dist/index.js",
+		"build": "tsc && node dist/index.js"
 	},
 	"license": "Apache-2.0",
 	"devDependencies": {

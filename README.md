@@ -1,2 +1,3 @@
-# bytelr
-A website for online collaboration!
+# Web
+
+This is the client side of Bytelr!

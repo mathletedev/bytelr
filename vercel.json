@@ -1,6 +1,6 @@
 {
 	"functions": {
-		"api/graphql": {
+		"api/graphql.ts": {
 			"includeFiles": "server/**"
 		}
 	}

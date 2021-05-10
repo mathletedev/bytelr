@@ -11,6 +11,7 @@ import { PostResolver } from "./resolvers/post";
 const graphql = async (req: NextApiRequest, res: NextApiResponse) => {
 	const orm = await MikroORM.init(config);
 	await orm.isConnected();
+	await orm.getMigrator().createMigration();
 	await orm.getMigrator().up();
 
 	const handler = new ApolloServer({

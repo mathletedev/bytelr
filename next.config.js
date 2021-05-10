@@ -1,5 +1,7 @@
 require("dotenv-safe").config();
 
 module.exports = {
-	env: {}
+	env: {
+		API_PATH: "/api"
+	}
 };

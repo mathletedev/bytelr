@@ -1,7 +1,7 @@
 import { Options } from "@mikro-orm/core";
 import { join } from "path";
-import { Post } from "../server/entities/Post";
-import { __pass__, __prod__ } from "../utils/constants";
+import { __pass__, __prod__ } from "../../../utils/constants";
+import { Post } from "./entities/Post";
 
 // ! Replace "$" with "D" in .env since .env doesn't support $
 const config: Options = {

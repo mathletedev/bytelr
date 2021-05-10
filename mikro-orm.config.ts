@@ -1,4 +1,4 @@
 import "dotenv-safe/config";
-import config from "./server/mikro-orm";
+import config from "./pages/api/server/mikro-orm";
 
 export default config;

@@ -8,7 +8,9 @@ const graphql = async (req: NextApiRequest, res: NextApiResponse) => {
 	const handler = new ApolloServer({
 		schema: await buildSchema({
 			resolvers: [HelloResolver]
-		})
+		}),
+		// ! Displays GraphQL Playground; remove in prod
+		playground: true
 	}).createHandler({ path: process.env.API_PATH });
 
 	return handler(req, res);
@@ -16,6 +18,7 @@ const graphql = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default graphql;
 
+// ! Required for GraphQL Playground to load
 export const config = {
 	api: {
 		bodyParser: false

@@ -1,4 +1,4 @@
-import graphql from "./server/index";
+import graphql from "../../server/index";
 
 export default graphql;
 

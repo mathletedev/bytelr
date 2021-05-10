@@ -21,7 +21,8 @@ const config: Options = {
 	type: "postgresql",
 	debug: !__prod__,
 	user: "postgres",
-	password: __pass__
+	password: __pass__,
+	port: 5432
 };
 
 export default config;

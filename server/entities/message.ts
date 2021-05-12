@@ -1,5 +1,5 @@
 import { getModelForClass, prop } from "@typegoose/typegoose";
-import { ObjectId } from "mongoose";
+import { ObjectId } from "mongodb";
 import { Field, ID, ObjectType } from "type-graphql";
 
 @ObjectType()

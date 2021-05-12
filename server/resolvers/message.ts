@@ -1,20 +1,28 @@
 import { ObjectId } from "mongodb";
-import { Arg, ID, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Message, MessageModel } from "../entities/message";
-import { ObjectIdScalar } from "../types/objectId.scalar";
+import { ObjectIdScalar } from "../typegoose/objectId.scalar";
 
 @Resolver()
 export class MessageResolver {
-	@Query(() => String, { nullable: true })
-	async getTextById(@Arg("id", () => ObjectIdScalar) id: ObjectId) {
-		return (await MessageModel.findById(id))?.text;
+	@Query(() => [Message])
+	async messages() {
+		return await MessageModel.find({});
 	}
 
-	@Mutation(() => ID)
+	@Query(() => Message, { nullable: true })
+	async getMessageById(@Arg("id", () => ObjectIdScalar) id: ObjectId) {
+		return await MessageModel.findById(id);
+	}
+
+	@Mutation(() => Message)
 	async createMessage(@Arg("text") text: string) {
 		const newMessage = new MessageModel({ text } as Message);
+		return await newMessage.save();
+	}
 
-		await newMessage.save();
-		return newMessage._id;
+	@Mutation(() => Message, { nullable: true })
+	async deleteMessage(@Arg("id", () => ObjectIdScalar) id: ObjectId) {
+		return await MessageModel.findByIdAndDelete(id);
 	}
 }

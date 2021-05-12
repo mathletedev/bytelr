@@ -1,15 +1,16 @@
-import { getModelForClass, prop } from "@typegoose/typegoose";
+import { getModelForClass, prop as Property } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
-import { Field, ID, ObjectType } from "type-graphql";
+import { Field, ObjectType } from "type-graphql";
+import { ObjectIdScalar } from "../typegoose/objectId.scalar";
 
 @ObjectType()
 export class Message {
-	@Field(() => ID)
-	readonly _id!: ObjectId;
+	@Field(() => ObjectIdScalar)
+	readonly _id: ObjectId;
 
-	@Field()
-	@prop({ required: true })
-	text!: string;
+	@Field(() => String)
+	@Property({ required: true })
+	text: string;
 }
 
 export const MessageModel = getModelForClass(Message);

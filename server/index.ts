@@ -6,6 +6,7 @@ import { buildSchema } from "type-graphql";
 import { AddResolver } from "./resolvers/add";
 import { HelloResolver } from "./resolvers/hello";
 import { MessageResolver } from "./resolvers/message";
+import { TypegooseMiddleware } from "./typegoose/typegooseMiddleware";
 
 const graphql = async (req: NextApiRequest, res: NextApiResponse) => {
 	await connect(process.env.MONGO_URI!, {
@@ -16,10 +17,12 @@ const graphql = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const handler = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [AddResolver, HelloResolver, MessageResolver]
+			resolvers: [AddResolver, HelloResolver, MessageResolver],
+			globalMiddlewares: [TypegooseMiddleware]
 		}),
 		// ! Displays GraphQL Playground; remove in prod
-		playground: true
+		playground: true,
+		introspection: true
 	}).createHandler({ path: process.env.API_PATH });
 
 	return handler(req, res);

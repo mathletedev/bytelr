@@ -1,25 +1,25 @@
-import { MikroORM } from "@mikro-orm/core";
 import { ApolloServer } from "apollo-server-micro";
+import { connect } from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import config from "./mikro-orm";
 import { AddResolver } from "./resolvers/add";
 import { HelloResolver } from "./resolvers/hello";
-import { PostResolver } from "./resolvers/post";
+import { MessageResolver } from "./resolvers/message";
 
 const graphql = async (req: NextApiRequest, res: NextApiResponse) => {
-	const orm = await MikroORM.init(config);
-	await orm.isConnected();
-	await orm.getMigrator().up();
+	await connect(process.env.MONGO_URI!, {
+		dbName: "bytelr",
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	});
 
 	const handler = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [AddResolver, HelloResolver, PostResolver]
+			resolvers: [AddResolver, HelloResolver, MessageResolver]
 		}),
 		// ! Displays GraphQL Playground; remove in prod
-		playground: true,
-		context: () => ({ em: orm.em })
+		playground: true
 	}).createHandler({ path: process.env.API_PATH });
 
 	return handler(req, res);

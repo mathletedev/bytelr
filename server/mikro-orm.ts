@@ -1,6 +1,6 @@
 import { Options } from "@mikro-orm/core";
 import { join } from "path";
-import { __pass__, __prod__ } from "../utils/constants";
+import { __prod__ } from "../utils/constants";
 import { Post } from "./entities/Post";
 import { Migration20210510212046 } from "./migrations/Migration20210510212046";
 
@@ -21,7 +21,8 @@ const config: Options = {
 	type: "postgresql",
 	debug: !__prod__,
 	user: "postgres",
-	password: __pass__,
+	password: process.env.DB_PASS,
+	host: "localhost",
 	port: 5432
 };
 

@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@typegoose/typegoose": "^7.6.0",
 		"apollo-server-micro": "^2.24.0",
+		"class-validator": "^0.13.1",
 		"dotenv-safe": "^8.2.0",
 		"graphql": "^15.5.0",
 		"mongodb": "^3.6.6",

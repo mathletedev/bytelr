@@ -22,7 +22,7 @@ const config: Options = {
 	debug: !__prod__,
 	user: "postgres",
 	password: process.env.DB_PASS,
-	host: "localhost",
+	host: process.env.HOST,
 	port: 5432
 };
 

@@ -10,6 +10,7 @@
 	},
 	"license": "Apache-2.0",
 	"dependencies": {
+		"@apollo/client": "^3.3.17",
 		"@typegoose/typegoose": "^7.6.0",
 		"apollo-server-micro": "^2.24.0",
 		"class-validator": "^0.13.1",

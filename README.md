@@ -1,3 +1,1 @@
-# Web
-
-This is the client side of Bytelr!
+# This project is discontinued due to the fact that Vercel does not support websockets

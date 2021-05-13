@@ -13,6 +13,7 @@ const GET_MESSAGES = gql`
 const Index: FC = () => {
 	const { loading, data } = useQuery(GET_MESSAGES);
 	if (loading) return <p>Loading ...</p>;
+
 	return (
 		<Fragment>
 			{data.messages.map((msg: any) => (

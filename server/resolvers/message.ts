@@ -1,5 +1,13 @@
 import { ObjectId } from "mongodb";
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import {
+	Arg,
+	Mutation,
+	Publisher,
+	PubSub,
+	Query,
+	Resolver,
+	Subscription
+} from "type-graphql";
 import { Message, MessageModel } from "../entities/message";
 import { ObjectIdScalar } from "../typegoose/objectId.scalar";
 
@@ -16,13 +24,26 @@ export class MessageResolver {
 	}
 
 	@Mutation(() => Message)
-	async createMessage(@Arg("text") text: string) {
+	async createMessage(
+		@Arg("text") text: string,
+		@PubSub("MESSAGES") publish: Publisher<Message>
+	) {
 		const newMessage = new MessageModel({ text } as Message);
-		return await newMessage.save();
+		await newMessage.save();
+		// TODO > Fix publish; message sent is undefined <
+		await publish(newMessage);
+
+		return newMessage;
 	}
 
 	@Mutation(() => Message, { nullable: true })
 	async deleteMessage(@Arg("id", () => ObjectIdScalar) id: ObjectId) {
 		return await MessageModel.findByIdAndDelete(id);
+	}
+
+	// * Subscription to refresh chat
+	@Subscription(() => Boolean, { topics: "MESSAGES" })
+	newMessage() {
+		return true;
 	}
 }
